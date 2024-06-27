@@ -4,7 +4,7 @@ exports.registerUser = (req, res) => {
   const { u_id, u_pw, u_name, u_nickname, u_email, u_birth, u_img } = req.body;
 
   if (!u_id || !u_pw || !u_name || !u_nickname || !u_email || !u_birth) {
-    return res.status(400).send('정보를 모두 입력해야 합니다.');
+    return res.status(400).send('회원가입 정보를 모두 입력해야 합니다.');
   }
 
   con.query(
@@ -17,6 +17,8 @@ exports.registerUser = (req, res) => {
       res.status(201).send('회원가입이 완료되었습니다.');
     }
   );
+
+  console.log("register fin")
 };
 
 exports.loginUser = (req, res) => {
