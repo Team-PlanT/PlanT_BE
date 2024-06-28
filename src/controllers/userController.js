@@ -1,6 +1,6 @@
 const con = require('../config/database');
 
-exports.registerUser = (req, res) => {
+const registerUser = (req, res) => {
   const { u_id, u_pw, u_name, u_nickname, u_email, u_birth, u_img } = req.body;
 
   if (!u_id || !u_pw || !u_name || !u_nickname || !u_email || !u_birth) {
@@ -18,10 +18,10 @@ exports.registerUser = (req, res) => {
     }
   );
 
-  console.log("register fin")
+  console.log("register")
 };
 
-exports.loginUser = (req, res) => {
+const loginUser = (req, res) => {
   const { u_id, u_pw } = req.body;
 
   if (!u_id || !u_pw) {
@@ -44,3 +44,5 @@ exports.loginUser = (req, res) => {
     }
   );
 };
+
+module.exports  = { registerUser, loginUser };

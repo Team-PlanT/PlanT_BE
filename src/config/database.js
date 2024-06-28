@@ -9,6 +9,12 @@ const con = mysql.createConnection({
   database: process.env.DB_NAME,
 });
 
-con.connect();
+con.connect((err) => {
+  if (err) {
+    console.error('Error connecting to the database:', err);
+    return;
+  }
+  console.log('Connected to the database.');
+});
 
 module.exports = con;
