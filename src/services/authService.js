@@ -38,7 +38,7 @@ const naverCallback = async (req, res) => {
       if (results.length > 0) {
         console.log('회원 정보가 이미 존재합니다.');
         const token = generateToken(user);
-        const redirectUrl = `http://localhost:3000/auth/success?token=${token}`;
+        const redirectUrl = `http://localhost:3000/auth/success?token=${token}&naver=true`;
         return res.redirect(redirectUrl);
       } else {
         // 회원 정보가 존재하지 않는 경우 삽입
@@ -53,7 +53,7 @@ const naverCallback = async (req, res) => {
 
             console.log('User inserted successfully');
             const token = generateToken(user);
-            const redirectUrl = `http://localhost:3000/auth/success?token=${token}`;
+            const redirectUrl = `http://localhost:3000/auth/success?token=${token}&naver=true`;
             res.redirect(redirectUrl);
           }
         );
@@ -91,7 +91,7 @@ const kakaoCallback = async (req, res) => {
       if (results.length > 0) {
         console.log('회원 정보가 이미 존재합니다.');
         const token = generateToken(user);
-        const redirectUrl = `http://localhost:3000/auth/success?token=${token}`;
+        const redirectUrl = `http://localhost:3000/auth/success?token=${token}&kakao=true`;
         return res.redirect(redirectUrl);
       } else {
         // 회원 정보가 존재하지 않는 경우 삽입
@@ -106,7 +106,7 @@ const kakaoCallback = async (req, res) => {
 
             console.log('User inserted successfully');
             const token = generateToken(user);
-            const redirectUrl = `http://localhost:3000/auth/success?token=${token}`;
+            const redirectUrl = `http://localhost:3000/auth/success?token=${token}&kakao=true`;
             res.redirect(redirectUrl);
           }
         );
