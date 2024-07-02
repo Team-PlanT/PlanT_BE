@@ -72,10 +72,13 @@ const kakaoCallback = async (req, res) => {
     const tokenData = await getKakaoToken(code);
     const kakaoProfile = await getKakaoProfile(tokenData.access_token);
 
-    const { id, properties } = kakaoProfile;
+    const { id, properties, kakao_account } = kakaoProfile;
     const user = {
-      u_nickname: properties.profile_nickname,
+      u_id: id,
+      u_nickname: properties.nickname,
       u_img: properties.profile_image,
+      u_email: kakao_account.email,
+      u_birth: kakao_account.birthday
     };
 
     console.log('유저 데이터 db로 insert:', user);
