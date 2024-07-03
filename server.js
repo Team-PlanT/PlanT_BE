@@ -27,6 +27,23 @@ app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUniniti
 app.use('/api/users', userRoutes);
 app.use('/auth', authRoutes);
 
+// DB 연결 끊겼을 때 재연결 코드
+con.on('error', (err) => {
+  console.log('db error', err);
+  if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+    console.log('Reconnecting to the database...');
+    con.connect((err) => {
+      if (err) {
+        console.error('Error reconnecting to the database:', err);
+      } else {
+        console.log('Reconnected to the database.');
+      }
+    });
+  } else {
+    throw err;
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
