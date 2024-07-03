@@ -1,3 +1,4 @@
+```
 PlanT_BE
 ├─ Dockerfile
 ├─ README.md
@@ -21,3 +22,4 @@ PlanT_BE
    └─ utils
       ├─ kakaoAuth.js
       └─ naverAuth.js
+```
