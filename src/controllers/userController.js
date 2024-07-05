@@ -21,6 +21,7 @@ const registerUser = (req, res) => {
   console.log("register")
 };
 
+
 const loginUser = (req, res) => {
   const { u_id, u_pw } = req.body;
 
