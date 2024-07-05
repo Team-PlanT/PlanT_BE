@@ -181,7 +181,7 @@ const googleCallback = async (req, res) => {
 
             console.log("User inserted successfully");
             const token = generateToken(user);
-            const redirectUrl = `http://localhost:3000/auth/success?token=${token}`;
+            const redirectUrl = `http://localhost:3000/auth/success?token=${token}&goolgle=true`;
             res.redirect(redirectUrl);
           }
         );
