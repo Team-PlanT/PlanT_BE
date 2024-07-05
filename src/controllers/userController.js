@@ -31,9 +31,10 @@ const signupUser = async (req, res) => {
 
 const loginUser = (req, res) => {
   const { u_email, u_pw } = req.body;
+  // console.log(u_email, + " / " + u_pw);
 
   if (!u_email || !u_pw) {
-    return res.status(400).send('아이디와 비밀번호를 모두 입력해야 합니다.');
+    return res.status(400).send('이메일과 비밀번호를 모두 입력해야 합니다.');
   }
 
   con.query(
