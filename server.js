@@ -1,13 +1,15 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
 const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
 const cors = require('cors');
+
+const con = require('./src/config/database');
 
 const userRoutes = require('./src/routes/userRoutes');
 const authRoutes = require('./src/routes/authRoutes');
-
-const con = require('./src/config/database');
+const postRoutes = require('./src/routes/postRoutes');
+const planRoutes = require('./src/routes/planRoutes');
 
 dotenv.config();
 
@@ -22,10 +24,31 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
+const sessionStore = new MySQLStore({
+  host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
+
+// 세션
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: sessionStore,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+    maxAge: 1000 * 60 * 60 * 24
+  }
+}));
 
 app.use('/api/users', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/plans', planRoutes);
 
 // DB 연결 끊겼을 때 재연결 코드
 con.on('error', (err) => {
