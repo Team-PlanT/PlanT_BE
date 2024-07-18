@@ -17,6 +17,18 @@ const createPlan = (req, res) => {
   );
 };
 
+const getPlans = (req, res) => {
+  con.query('SELECT * FROM plan', (err, results) => {
+    if (err) {
+      console.error('Error fetching plans:', err);
+      return res.status(500).send('Error fetching plans');
+    }
+
+    res.json(results);
+  });
+};
+
 module.exports = {
   createPlan,
+  getPlans,
 };

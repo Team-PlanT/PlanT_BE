@@ -14,7 +14,7 @@ const planRoutes = require('./src/routes/planRoutes');
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 
 app.use(cors({
   // 프론트엔드 주소
@@ -48,7 +48,7 @@ app.use(session({
 app.use('/api/users', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/api/posts', postRoutes);
-app.use('/api/plans', planRoutes);
+app.use('/api/plans', planRoutes); // 여기에서 planRoutes가 올바르게 등록되어야 합니다.
 
 // DB 연결 끊겼을 때 재연결 코드
 con.on('error', (err) => {
