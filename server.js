@@ -4,12 +4,13 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const cors = require('cors');
 
-const con = require('./src/config/database'); // 경로 확인
+const con = require('./src/config/database');
 
 const userRoutes = require('./src/routes/userRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 const postRoutes = require('./src/routes/postRoutes');
-const planRoutes = require('./src/routes/planRoutes');
+const detailRoutes = require('./src/routes/detailRoutes');
+const listRoutes = require('./src/routes/listRoutes'); // List routes 추가
 
 dotenv.config();
 
@@ -46,7 +47,8 @@ app.use(session({
 app.use('/api/users', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/api/posts', postRoutes);
-app.use('/api/plans', planRoutes);
+app.use('/api/details', detailRoutes);
+app.use('/api/list', listRoutes); // List routes 등록
 
 con.on('error', (err) => {
   console.log('db error', err);
