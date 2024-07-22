@@ -18,6 +18,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
 
+
 app.use(
   cors({
     // 프론트엔드 주소
@@ -25,6 +26,7 @@ app.use(
     credentials: true,
   })
 );
+
 
 app.use(express.json());
 
@@ -63,6 +65,7 @@ con.on("error", (err) => {
   console.log("db error", err);
   if (err.code === "PROTOCOL_CONNECTION_LOST") {
     console.log("Reconnecting to the database...");
+
     con.connect((err) => {
       if (err) {
         console.error("Error reconnecting to the database:", err);
