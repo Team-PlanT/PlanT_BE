@@ -4,7 +4,7 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const cors = require('cors');
 
-const con = require('./src/config/database');
+const con = require('./src/config/database'); // 경로 확인
 
 const userRoutes = require('./src/routes/userRoutes');
 const authRoutes = require('./src/routes/authRoutes');
@@ -17,7 +17,6 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 app.use(cors({
-  // 프론트엔드 주소
   origin: 'http://localhost:3000',
   credentials: true,
 }));
@@ -32,7 +31,6 @@ const sessionStore = new MySQLStore({
   database: process.env.DB_NAME,
 });
 
-// 세션
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -48,9 +46,8 @@ app.use(session({
 app.use('/api/users', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/api/posts', postRoutes);
-app.use('/api/plans', planRoutes); // 여기에서 planRoutes가 올바르게 등록되어야 합니다.
+app.use('/api/plans', planRoutes);
 
-// DB 연결 끊겼을 때 재연결 코드
 con.on('error', (err) => {
   console.log('db error', err);
   if (err.code === 'PROTOCOL_CONNECTION_LOST') {
